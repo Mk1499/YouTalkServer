@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
+  console.log("New Req :", req);
   res
     .json({
       message: "Success",
