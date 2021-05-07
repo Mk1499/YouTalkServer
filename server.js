@@ -9,7 +9,6 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  console.log("New Req :", req);
   res
     .json({
       message: "Success",
@@ -34,5 +33,5 @@ io.on("connection", (socket) => {
 let port = process.env.PORT || 3000;
 
 server.listen(port, () => {
-  console.log("Server Started on Port Number  ", port);
+  console.log("Server Start at  ", port);
 });
