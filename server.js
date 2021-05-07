@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 const server = http.Server(app);
 const io = new Server(server, {
   cors: {
-    origin: '*',
+    origin: "*",
     // methods: ["GET", "POST"],
     // credentials: true,
     // path: "socket.io",
@@ -30,4 +30,8 @@ io.on("connection", (socket) => {
   console.log("New Connection : ", socket);
 });
 
-server.listen(3000);
+let port = process.env.PORT || 3000;
+
+server.listen(port, () => {
+  console.log("Server Started on Port Number  ", port);
+});
