@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
 });
 
 wss.on("connection", function connection(ws) {
-  console.log("New Connection : ", ws);
+  console.log("New Connection : ");
   socketHandler(ws);  
 });
 
