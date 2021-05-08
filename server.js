@@ -1,37 +1,18 @@
-const express = require("express");
-const http = require("http");
-const Server = require("socket.io").Server;
-const app = express();
-const cors = require("cors");
-const bodyParser = require("body-parser");
+const WebSocket = require("ws");
 
-app.use(bodyParser.json());
-app.use(cors());
+const wss = new WebSocket.Server({ port: 3000 });
 
-app.get("/", (req, res) => {
-  res
-    .json({
-      message: "Success",
+wss.on("connection", function connection(ws) {
+  console.log("New Connection : ", ws);
+  ws.send(
+    JSON.stringify({
+      name: "welcome",
+      payload: "Mohamed Khaled",
     })
-    .status(200);
-});
+  );
+  ws.on("message", function incoming(message) {
+    console.log("received: %s", message);
+  });
 
-const server = http.Server(app);
-const io = new Server(server, {
-  cors: {
-    origin: "*",
-    // methods: ["GET", "POST"],
-    // credentials: true,
-    // path: "socket.io",
-  },
-});
-
-io.on("connection", (socket) => {
-  console.log("New Connection : ", socket);
-});
-
-let port = process.env.PORT || 3000;
-
-server.listen(port, () => {
-  console.log("Server Start at  ", port);
+  ws.send("something");
 });
